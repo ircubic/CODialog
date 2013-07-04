@@ -118,8 +118,6 @@ CODialogSynth(highlightedIndex)
       height = CGRectGetWidth(screenBounds) - CGRectGetWidth(bounds);
       frame.origin.x = (height - CGRectGetWidth(self.bounds)) / 2.0  + CGRectGetWidth(bounds);
       break;
-    default:
-      break;
   }
   
   if (CGRectGetMinY(frame) < 0) {
@@ -169,8 +167,6 @@ CODialogSynth(highlightedIndex)
       break;
     case UIInterfaceOrientationLandscapeRight:
       transform = CGAffineTransformMakeRotation(degreesToRadian(90));
-      break;
-    default:
       break;
   }
   return transform;
@@ -318,7 +314,7 @@ CODialogSynth(highlightedIndex)
   
   // Layout text fields
   if (numTextFields > 0) {
-    for (int i=0; i<numTextFields; i++) {
+    for (NSUInteger i=0; i<numTextFields; i++) {
       CGFloat offsetY = (kCODialogTextFieldHeight + kCODialogPadding) * (CGFloat)i;
       CGRect fieldFrame = CGRectMake(0,
                                      CGRectGetMinY(layout.textFieldsRect) + offsetY,
@@ -332,13 +328,13 @@ CODialogSynth(highlightedIndex)
       [newContentView addSubview:field];
     }
   }
-  
+
   // Layout buttons
   NSUInteger count = self.buttons.count;
   if (count > 0) {
     CGFloat buttonWidth = (CGRectGetWidth(layout.buttonRect) - kCODialogPadding * ((CGFloat)count - 1.0)) / (CGFloat)count;
     
-    for (int i=0; i<count; i++) {
+    for (NSUInteger i=0; i<count; i++) {
       CGFloat left = (kCODialogPadding + buttonWidth) * (CGFloat)i;
       CGRect buttonFrame = CGRectIntegral(CGRectMake(left, CGRectGetMinY(layout.buttonRect), buttonWidth, CGRectGetHeight(layout.buttonRect)));
       
@@ -346,7 +342,7 @@ CODialogSynth(highlightedIndex)
       button.frame = buttonFrame;
       button.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
       
-      BOOL highlighted = (self.highlightedIndex == i);
+      BOOL highlighted = ((NSUInteger)self.highlightedIndex == i);
       NSString *title = [button titleForState:UIControlStateNormal];
       
       // Set default image
